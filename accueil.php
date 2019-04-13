@@ -3,7 +3,7 @@ session_start();
 
 //var_dump($_POST);
 //echo 'On est connecté '.$_SESSION['IdUsers'];
-// test MATEO
+// test IBRAHIM
 if(!isset($_SESSION['email'])){
 
    header('Location: index.php');
