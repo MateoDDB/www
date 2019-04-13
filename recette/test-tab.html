@@ -1,0 +1,44 @@
+<?php
+
+
+
+
+
+
+$conn = mysqli_connect('localhost', 'root', 'root', 'creativelscreati');
+mysqli_set_charset($conn, "utf8");
+//$conn = mysqli_connect('creativelscreati.mysql.db', 'creativelscreati', 'Ibrahim95', 'creativelscreati');        
+$select_table = "SELECT * FROM SaisieEmploi";              
+$res = $conn->query($select_table);
+$rows = $res->fetch_assoc();
+$conn = new mysqli('localhost', 'root', 'root');  
+mysqli_select_db($conn, 'rob');  
+   
+$setSql = "SELECT `idrts`,`datrts`,`agv`,`montrts`,`moderts`,`numerorts` FROM `rtsbillet`"; 
+$setRec = mysqli_query($conn,$setSql); 
+$columnHeader = ''; 
+$columnHeader = "NUMERO " . "\t" . "Date" . "\t" . "AGV" . "\t" . "Montant" . "\t" . "Mode" . "\t" . "Reference" ."\t"; 
+   
+$setData = ''; 
+   
+while ($rec = mysqli_fetch_row($setRec)) { 
+    $rowData = ''; 
+    foreach ($rec as $value) { 
+        $value = '"' . $value . '"' . "\t"; 
+        $rowData .= $value; 
+    } 
+    $setData .= trim($rowData) . "\n"; 
+} 
+   
+   
+header("Content-type: application/octet-stream"); 
+header("Content-Disposition: attachment; filename=User_Detail_Report.xls"); 
+header("Pragma: no-cache"); 
+header("Expires: 0"); 
+   
+echo ucwords($columnHeader) . "\n" . $setData . "\n";
+ 
+ 
+ 
+ 
+?>
